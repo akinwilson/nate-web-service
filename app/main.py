@@ -7,7 +7,7 @@ import uvicorn
 
 from vocabConstructor import Retriever, TextProcessor
 
-from fastapi import FastAPI, Request, status 
+from fastapi import FastAPI, Request
 from fastapi.logger import logger 
 from fastapi.exceptions import RequestValidationError
 from exception_handler import python_exception_handler, validation_exception_handler
@@ -25,8 +25,8 @@ app.add_exception_handler(Exception, python_exception_handler)
 
 @app.post("/api/v1/extract",
         response_model=EndpointResponse,
-        responses={422: {"extractor": EndpointError},
-                   500: {"extractor": EndpointError}})
+        responses={422: {"model": EndpointError},
+                   500: {"model": EndpointError}})
 
 
 
@@ -54,5 +54,5 @@ def extract_vocab(request:Request, body:EndpointInput):
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host="0.0.0.0", port=8080,
-                reload=True, debug=True, log_config="log.ini"
+                reload=True, debug=True, log_config="logging.conf"
                 )
