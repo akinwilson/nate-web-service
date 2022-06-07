@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from bs4 import BeautifulSoup
 from bs4.element import Comment
 from urllib.request import urlopen
