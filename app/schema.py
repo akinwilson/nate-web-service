@@ -28,13 +28,13 @@ class EndpointResult(BaseModel):
     '''
     url: str = Field( ... , example="https://www.reddit.com/", title="URL of page to extract word occurrences")
     sort_type: Optional[str] = Field( None , example="frequency", title="Whether to perform sorting (frequency-based or alphabetically) on the returned vocabulary. Valid options are: ")
-    vocab: Dict = Field(..., example="{'words':10, 'from':'9', 'webpage':'5'}", title="Constructed vocabulary dictionary") 
+    vocab: Dict = Field(..., example="{'words':10, 'from':9, 'webpage':5}", title="Constructed vocabulary dictionary") 
 
 
 
 class EndpointResponse(BaseModel):
     error: bool = Field(..., example=False, title="Whether there occured an error")
-    results: EndpointResult = ... 
+    result: EndpointResult = ... 
 
 
 class EndpointError(BaseModel):
