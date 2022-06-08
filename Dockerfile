@@ -8,6 +8,8 @@ WORKDIR /opt
 ENV GUNICORN_WORKERS=$GUNICORN_WORKERS \
     GUNICORN_TIMEOUT=$GUNICORN_TIMEOUT \
     LOGLEVEL=$LOGLEVEL
+
+# env variable for checking whether app is running inside container (then using app.mount(...) in main.py file or not)
 ENV DOCKER_ENV="DOCKER"
 
 COPY requirements.txt ./ 
