@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin python
 
 from bs4 import BeautifulSoup
 from bs4.element import Comment
@@ -6,6 +6,8 @@ from urllib.request import urlopen
 import re
 from collections import Counter
 from typing import Dict
+
+
 
 class Retriever:
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin python
 
 from typing import Optional,Dict, Union, Set, List
 import validators
@@ -31,7 +31,7 @@ class EndpointResult(BaseModel):
     '''
     url: str = Field( ... , example="https://www.reddit.com/", title="URL of page to extract word occurrences")
     sort_type: Optional[str] = Field( None , example="frequency", title="Whether sorting (frequency-based or alphabetically) was performed")
-    vocab: Dict = Field(..., example="{'words':10, 'from':9, 'webpage':5}", title="Constructed vocabulary dictionary") 
+    vocab: Union[Dict,Set] = Field(..., example="{'words':10, 'from':9, 'webpage':5}", title="Constructed vocabulary dictionary") 
 
 
 class EndpointResponse(BaseModel):
