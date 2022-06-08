@@ -45,7 +45,7 @@ app.add_exception_handler(Exception, python_exception_handler)
 
 
 @app.post(
-    "/api/v1/extract",
+    "/extract",
     response_model=EndpointResponse,
     responses={422: {"model": EndpointError}, 500: {"model": EndpointError}},
 )
@@ -66,7 +66,7 @@ def extract_vocab(request: Request, body: EndpointInput):
     return {"error": False, "result": result}
 
 
-@app.get("/api/v1/health")
+@app.get("/health")
 def health_check():
     return {"data": 200}
 
