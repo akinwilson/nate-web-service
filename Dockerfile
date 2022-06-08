@@ -9,15 +9,13 @@ ENV GUNICORN_WORKERS=$GUNICORN_WORKERS \
     GUNICORN_TIMEOUT=$GUNICORN_TIMEOUT \
     LOGLEVEL=$LOGLEVEL
 
-
-
 COPY requirements.txt ./ 
 RUN python3 -m pip --no-cache-dir install --upgrade pip 
 RUN python3 -m pip install -r requirements.txt
 RUN rm requirements.txt 
 
 
-COPY app ./
+COPY app/extractor ./
 
 # should be using the standard var/log location inside container
 RUN mkdir log
