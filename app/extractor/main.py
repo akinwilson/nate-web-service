@@ -1,13 +1,26 @@
 #!/usr/bin python
+import os
+import sys
 import uvicorn
 import logging
-from vocabConstructor import Retriever, TextProcessor
 from fastapi import FastAPI, Request
 from fastapi.logger import logger as fastapi_logger
 from fastapi.exceptions import RequestValidationError
-from exception_handler import python_exception_handler, validation_exception_handler
-from schema import EndpointResponse, EndpointError, EndpointInput
 
+# Relative path import hell! code bellow ensures that when within docker container, imports are still found
+# I have fought and fought with relative path imports, and the always end up winning and I have to use
+# annoying code like this to make sure everything is importable.
+try:
+    from vocabConstructor import Retriever, TextProcessor
+    from exception_handler import python_exception_handler, validation_exception_handler
+    from schema import EndpointResponse, EndpointError, EndpointInput
+except ModuleNotFoundError:
+    dir = os.path.dirname(os.path.realpath(__file__))
+    if dir not in sys.path:
+        sys.path.append(dir)
+    from vocabConstructor import Retriever, TextProcessor
+    from exception_handler import python_exception_handler, validation_exception_handler
+    from schema import EndpointResponse, EndpointError, EndpointInput
 
 gunicorn_error_logger = logging.getLogger("gunicorn.error")
 gunicorn_logger = logging.getLogger("gunicorn")
