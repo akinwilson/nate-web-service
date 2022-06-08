@@ -6,6 +6,8 @@ import logging
 from fastapi import FastAPI, Request
 from fastapi.logger import logger as fastapi_logger
 from fastapi.exceptions import RequestValidationError
+from fastapi.staticfiles import StaticFiles
+from starlette.responses import RedirectResponse
 
 # Relative path import hell! code bellow ensures that when within docker container, imports are still found
 # I have fought and fought with relative path imports, and the always end up winning and I have to use
@@ -30,22 +32,40 @@ uvicorn_access_logger.handlers = gunicorn_error_logger.handlers
 fastapi_logger.handlers = gunicorn_error_logger.handlers
 
 
-if __name__ != "__main__":
-    fastapi_logger.setLevel(gunicorn_logger.level)
-else:
-    fastapi_logger.setLevel(logging.DEBUG)
-
 desc = """
-API for construction a vocabulary from a webpages text content, returning dictionary with keys of words and values of occurences
+API for construction a vocabulary from a webpages text content,returning dictionary with keys of words and values of occurences
 """
 app = FastAPI(title="Webpage vocab constructor", description=desc)
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(Exception, python_exception_handler)
 
+if __name__ != "__main__":
+    fastapi_logger.setLevel(gunicorn_logger.level)
+else:
+    fastapi_logger.setLevel(logging.DEBUG)
+
+if os.environ.get("DOCKER_ENV") is not None:
+    # only mount when where are inside a docker file
+
+    # mounted coverage report of code tests inside fastapi
+    app.mount(
+        "/report",
+        StaticFiles(directory="/opt/static/", html=True),
+        name="test-report-ui",
+    )
+    # if one visit the root path, you will find the coverage report of the code, along with the code itself
+    # ***NOTE** THIS IS CLEARLY A SECURITY CONCERN -> including the coverage report in the root path of the API
+    # SINCE YOU ARE ABLE TO SEE THE SOURCE CODE THROUGH IT
+    # I AM ONLY DOING THIS FOR THE SAKE THAT IT CAN BE DONE. I WOULD NOT RECOMMEND DOING THIS IN PRODUCTION!!!
+    @app.get("/report")
+    async def read_report_index():
+
+        return RedirectResponse(url="/report/index.html")
+
 
 @app.post(
-    "/extract",
+    "/api/extract",
     response_model=EndpointResponse,
     responses={422: {"model": EndpointError}, 500: {"model": EndpointError}},
 )
@@ -66,9 +86,9 @@ def extract_vocab(request: Request, body: EndpointInput):
     return {"error": False, "result": result}
 
 
-@app.get("/health")
+@app.get("/api/health")
 def health_check():
-    return {"data": 200}
+    return {"status_code": 200}
 
 
 if __name__ == "__main__":

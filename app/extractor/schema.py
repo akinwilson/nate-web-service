@@ -47,12 +47,12 @@ class EndpointResult(BaseModel):
     )
     sort_type: Optional[str] = Field(
         None,
-        example="frequency",
+        example="alphabetically",
         title="Whether sorting (frequency-based or alphabetically) was performed",
     )
     vocab: Union[Dict, Set] = Field(
         ...,
-        example="{'words':10, 'from':9, 'webpage':5}",
+        example={"better": 10, "delta": 3, "zoo": 15, "xray": 20},
         title="Constructed vocabulary dictionary",
     )
 

@@ -29,7 +29,7 @@ class Retriever:
 
     def text_from_html(self):
         soup = BeautifulSoup(self.html, "html.parser")
-        texts = soup.findAll(text=True)
+        texts = soup.findAll(string=True)
         visible_texts = filter(self._tag_visible, texts)
         return " ".join(visible_texts)
 
