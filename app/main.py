@@ -28,11 +28,10 @@ app.add_exception_handler(Exception, python_exception_handler)
         responses={422: {"model": EndpointError},
                    500: {"model": EndpointError}})
 
-
-
 def extract_vocab(request:Request, body:EndpointInput):
     logger.info("API extract called")
     logger.info(f"Input: {body}")
+    
     url = body.url 
     sort_type = body.sort_type or None 
 
@@ -51,6 +50,12 @@ def extract_vocab(request:Request, body:EndpointInput):
         "error":False,
         "result": result 
     }
+
+
+@app.get("/api/v1/health")
+def health_check():
+    return {"data":200}
+
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host="0.0.0.0", port=8080,
