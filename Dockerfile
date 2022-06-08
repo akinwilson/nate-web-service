@@ -8,6 +8,7 @@ WORKDIR /opt
 ENV GUNICORN_WORKERS=$GUNICORN_WORKERS \
     GUNICORN_TIMEOUT=$GUNICORN_TIMEOUT \
     LOGLEVEL=$LOGLEVEL
+ENV DOCKER_ENV="DOCKER"
 
 COPY requirements.txt ./ 
 RUN python3 -m pip --no-cache-dir install --upgrade pip 
@@ -16,6 +17,10 @@ RUN rm requirements.txt
 
 
 COPY app/extractor ./
+
+# serving html coverage report
+RUN mkdir static 
+COPY htmlcov static
 
 # should be using the standard var/log location inside container
 RUN mkdir log
