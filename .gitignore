@@ -1,3 +1,4 @@
 Pipfile
 notebook
 **.egg-info/
+.coverage
