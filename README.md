@@ -1,4 +1,4 @@
-![Tests](https://github.com/akinwilson/nate-web-service/actions/workflows/github-actions.yml/badge.svg)
+![Tests](https://github.com/akinwilson/nate-web-service/actions/workflows/Tests.yml/badge.svg)
 # **Nate webservice application**
 This repo contains the associated code to the nate backend challenge. 
 
