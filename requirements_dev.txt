@@ -21,4 +21,4 @@ flake8>=3.9
 tox>=3.24
 coverage==6.4.1
 pytest-cov==3.0.0
-
+requests==2.27.1
