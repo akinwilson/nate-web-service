@@ -1,3 +1,4 @@
+![Tests](https://github.com/akinwilson/nate-web-service/actions/workflows/github-actions.yml/badge.svg)
 # **Nate webservice application**
 This repo contains the associated code to the nate backend challenge. 
 
@@ -10,7 +11,7 @@ It is recommended that you perform the following python-related commands from a 
 
 ### 1) **Installing locally via pip**
 
-Run the following commands from your terminal
+Run the following commands from your terminal:
 
   *(**Note**: the assumption is that you are running a linux-based operating system. If you are not, the commands may syntactically differ for other operating systems)*
 
