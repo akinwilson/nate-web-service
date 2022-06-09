@@ -31,6 +31,9 @@ class EndpointInput(BaseModel):
 
     @validator("url")
     def valid_url(cls, v):
+        # the url validator is not able to handle urls without the protocol at the start. I.e. www.reddit.com, will not work 
+        # and this validator will flagged the url to be invalid. Not desirable behaviour, would like it to adjust the url to fit
+        # required string structure to be scrapped
         assert validators.url(v), f"'{v}' is not valid URL"
         return v
 
