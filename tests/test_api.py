@@ -81,3 +81,15 @@ def test_sorting_frequency_based():
     freq_resorted = sorted(freq_resorted, reverse=True)
     assert freq_resorted == freq_sorted, f"Returned frequency sorted dictionary doesn't follow  order. Expected count order: {freq_sorted[:10]}. Got: {freq_resorted[:10]}"
 
+
+@pytest.mark.skip(reason="Bulk extraction not implemented yet")
+def test_bulk_urls_provided_via_and_single_sort_type_list():
+    body = {"url": ["reddit.com","https://www.bbc.co.uk/news"], "sort_type": None}
+    r = client.post("/api/extract", json=body)
+ 
+
+@pytest.mark.skip(reason="Multi sorting not implemented yet")
+def test_multi_sorting_return_single_url_extraction():
+    body = {"url":"reddit.com", "sort_type": ["frequency","alphabetically"]}
+    r = client.post("/api/extract", json=body)
+ 
