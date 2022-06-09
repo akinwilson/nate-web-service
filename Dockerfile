@@ -9,7 +9,8 @@ ENV GUNICORN_WORKERS=$GUNICORN_WORKERS \
     GUNICORN_TIMEOUT=$GUNICORN_TIMEOUT \
     LOGLEVEL=$LOGLEVEL
 
-
+# env variable for checking whether app is running inside container (then using app.mount(...) in main.py file or not)
+ENV DOCKER_ENV="DOCKER"
 
 COPY requirements.txt ./ 
 RUN python3 -m pip --no-cache-dir install --upgrade pip 
@@ -17,7 +18,11 @@ RUN python3 -m pip install -r requirements.txt
 RUN rm requirements.txt 
 
 
-COPY app ./
+COPY app/extractor ./
+
+# serving html coverage report
+RUN mkdir static 
+COPY htmlcov static
 
 # should be using the standard var/log location inside container
 RUN mkdir log
