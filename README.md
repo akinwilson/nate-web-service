@@ -3,17 +3,23 @@
 This repo contains the associated code to the nate backend challenge. 
 
 # **Overview**
-The web service has been implemented using [fastAPI](https://fastapi.tiangolo.com/); a python library for developing APIs. The testing of the API is being performed with [pytest](https://docs.pytest.org/en/7.1.x/). [Github action ](https://github.com/features/actions) is being utilised along with [tox](https://tox.wiki/en/latest/) for automating the testing process across multiple python versions.
+The web service has been implemented using [fastAPI](https://fastapi.tiangolo.com/); a python library for developing APIs. The testing of the API is being performed with [pytest](https://docs.pytest.org/en/7.1.x/). [Github action ](https://github.com/features/actions) is being utilised along with [tox](https://tox.wiki/en/latest/) for automating the testing process across multiple python versions. 
+
+Please use either of the following python releases: **3.8**, **3.9** or **3.10**, as these are the releases the tests have run against and passed
 
 ## **Running locally**
 It is recommended that you perform the following python-related commands from a [virtual envrionment](https://docs.python.org/3/tutorial/venv.html). 
 
 
-### 1) **Installing extractor service locally via pip**
+### 1) **Installing development requirments.txt and extractor package service locally via pip**
 
 Run the following commands from your terminal:
 
   *(**Note**: the assumption is that you are running a linux-based operating system. If you are not, the commands may syntactically differ for other operating systems)*
+
+`pip install -r requirements_dev.xtx`
+
+*This will install the development requirements needed for testing*
 
 `pip install -e ./`
 
