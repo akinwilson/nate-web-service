@@ -54,7 +54,35 @@ For the coverage report of the run tests, head to:
 Please review some of the comments I have left inside the code. These are basically regarding the security concerns of reporting the tests like this( visible via an endpoint; I would never normally do this, and have just done it for the sake of easy-of-use of this repo)
 
 
-# **Technical details**
+# **Optimization of application**
+Currently, the API only serves one vocab construction at a time. That is, a post request is made, the extraction is performed, and the response is sent back on a **per url basis**. 
+
+It would be beneficial to allow a user to supply a **list** of URLs in the post requests, and have the server complete the vocabulary extraction on the entire list, sending back a word occorance per supplied URL, in one response. This would avoid the additional incurred processing time associated with transfering the data, on a per URL basis, over the network.
+
+This can be achieved using [background tasks](https://fastapi.tiangolo.com/tutorial/background-tasks/) and implementing the associated method in the code. The workflow would be as follows:
+
+**client**: **post** request: bulk extraction &#8594; **server** 
+
+*server schedules the job, saves input data to disk, and associates uuid to it*
+
+
+**client** &#8592; accepted response **server**
+
+*reponse contains uuid of job. Client can use uuid to get partial job completion on the fly* 
+
+...*server processes job, saving to disk*...
+
+
+**client**: bulk extraction response  &#8592;  **server**
+
+
+ ...*on job completetion, server loads the processed extraction from disk* ...
+
+*Response contains constructed vocab per url*
+ 
+
+### **Infrastructure-specific considerations**
+
 The sorting of the constructed vocabulary is a CPU-bound task. Hence, you want to utilise as many virtual-cores of your node as possible, without affecting the overall all processing time. 
 
 The number of virtual cores is determined in the `.env` file, passed to the [gunicorn](https://gunicorn.org/) server initialisation script `start_server.sh` via environment variables of the `dockerfile`. 
