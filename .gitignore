@@ -2,3 +2,4 @@ Pipfile
 notebook
 **.egg-info/
 .coverage
+**/__pycache__/**
