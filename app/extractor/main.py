@@ -80,7 +80,6 @@ def extract_vocab(request: Request, body: EndpointInput):
     text = retreiver()
     text_processor = TextProcessor(text=text, sort_type=sort_type)
     vocab = text_processor()
-
     fastapi_logger.info(f"Constructed vocab: {vocab}")
     result = {"url": url, "sort_type": sort_type, "vocab": vocab}
     return {"error": False, "result": result}
