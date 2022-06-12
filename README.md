@@ -17,7 +17,7 @@ Run the following commands from your terminal:
 
   *(**Note**: the assumption is that you are running a linux-based operating system. If you are not, the commands may syntactically differ for other operating systems)*
 
-`pip install -r requirements_dev.xtx`
+`pip install -r requirements_dev.txt`
 
 *This will install the development requirements needed for testing*
 
